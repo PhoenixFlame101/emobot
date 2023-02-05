@@ -1,0 +1,48 @@
+import logo from './ZenTrack.png';
+import './App.css';
+import ReactDOM from 'react-dom/client';
+import axios from "axios";
+import React from 'react';
+import { useFormik } from 'formik';
+
+const baseURL = "https://jsonplaceholder.typicode.com/posts/1";
+
+const App = () => {
+  // Pass the useFormik() hook initial form values and a submit function that will
+  // be called when the form is submitted
+  const formik = useFormik({
+    initialValues: {
+      msg: '',
+    },
+    onSubmit: values => {
+      axios.get(baseURL).then((response) => {
+        //alert(response.data.body)
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(
+          <React.StrictMode>
+            <h1>Helloiiiii</h1>
+            <button></button>
+          </React.StrictMode>
+        );
+      })
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+  return (
+    <>
+      <img src={logo} alt="logo" />
+      <form onSubmit={formik.handleSubmit}>
+        <label>&gt;&gt;&gt;</label>
+        <input
+          id="msg"
+          name="msg"
+          style={{ border: 0 }}
+          onChange={formik.handleChange}
+          value={formik.values.msg}
+        />
+      </form>
+    </>
+  );
+};
+
+export default App;
